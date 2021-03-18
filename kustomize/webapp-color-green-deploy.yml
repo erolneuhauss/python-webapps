@@ -1,0 +1,41 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: webpp-color-green
+    namespace: webapp
+    labels:
+      app: webpp-color-green
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: webpp-color-green
+    template:
+      metadata:
+        labels:
+          app: webpp-color-green
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - arm64
+        volumes:
+          - name: proxy-cache
+            emptyDir: {}
+        containers:
+          - image: registry.fritz.box/my/arm64v8/simple-webapp-color:v0.2.3
+            name: webpp-color-green
+            ports:
+              - containerPort: 8080
+                name: http
+            env:
+              - name: APP_COLOR
+                value: green
+            volumeMounts:
+              - name: proxy-cache
+                mountPath: /var/cache/nginx/webapp
