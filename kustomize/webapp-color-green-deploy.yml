@@ -2,7 +2,7 @@
   kind: Deployment
   metadata:
     name: webpp-color-green
-    namespace: webapp
+    namespace: python-webapps
     labels:
       app: webpp-color-green
   spec:
@@ -24,9 +24,6 @@
                   operator: In
                   values:
                   - arm64
-        volumes:
-          - name: proxy-cache
-            emptyDir: {}
         containers:
           - image: registry.fritz.box/my/arm64v8/simple-webapp-color:v0.2.3
             name: webpp-color-green
@@ -36,6 +33,3 @@
             env:
               - name: APP_COLOR
                 value: green
-            volumeMounts:
-              - name: proxy-cache
-                mountPath: /var/cache/nginx/webapp
