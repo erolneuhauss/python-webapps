@@ -50,11 +50,22 @@
 
     - name: git add kustomization
       shell: git add kustomization.yaml
+      tags:
+        - kustomization
+
+    - name: git add configmap
+      shell: git add nginx-loadbalancer-configmap.yaml
+      tags:
+        - configmaps
 
     - name: git add deployments
       shell: "git add webapp-color-{{ item }}-deployment.yaml"
       loop: "{{ colors }}"
+      tags:
+        - deployments
 
     - name: git add services
       shell: "git add webapp-color-{{ item }}-service.yaml"
       loop: "{{ colors }}"
+      tags:
+        - services
