@@ -6,7 +6,7 @@
     labels:
       app: webapp-color-red
   spec:
-    replicas: 1
+    replicas: 0
     selector:
       matchLabels:
         app: webapp-color-red
