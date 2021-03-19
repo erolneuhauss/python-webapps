@@ -29,7 +29,7 @@
           configMap:
             name: nginx-loadbalancer-configmap
         containers:
-        - image: registry.fritz.box/arm64v8/nginx
+        - image: arm64v8/nginx
           name: nginx
           ports:
           - containerPort: 80
