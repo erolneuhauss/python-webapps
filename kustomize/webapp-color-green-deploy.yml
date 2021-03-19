@@ -1,19 +1,19 @@
   apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: webpp-color-green
+    name: webapp-color-green
     namespace: python-webapps
     labels:
-      app: webpp-color-green
+      app: webapp-color-green
   spec:
     replicas: 1
     selector:
       matchLabels:
-        app: webpp-color-green
+        app: webapp-color-green
     template:
       metadata:
         labels:
-          app: webpp-color-green
+          app: webapp-color-green
       spec:
         affinity:
           nodeAffinity:
@@ -26,7 +26,7 @@
                   - arm64
         containers:
           - image: registry.fritz.box/my/arm64v8/simple-webapp-color:v0.2.3
-            name: webpp-color-green
+            name: webapp-color-green
             ports:
               - containerPort: 8080
                 name: http
