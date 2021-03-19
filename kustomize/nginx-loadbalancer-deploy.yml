@@ -1,0 +1,42 @@
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-loadbalancer
+    namespace: python-webapps
+    labels:
+      app: loadbalancer
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: loadbalancer
+    template:
+      metadata:
+        labels:
+          app: loadbalancer
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/arch
+                  operator: In
+                  values:
+                  - arm64
+        volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: nginx-loadbalancer-configmap
+        containers:
+        - image: registry.fritz.box/arm64v8/nginx
+          name: nginx
+          ports:
+          - containerPort: 80
+            name: http
+          volumeMounts:
+          - name: nginx-config-volume
+            mountPath: /etc/nginx
+            readOnly: false
+
+

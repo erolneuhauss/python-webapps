@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: python-webapps
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+  name: webapp-color-traefik-ingress
+spec:
+  rules:
+  - host: webapp.fritz.box
+    http:
+      paths:
+      - path: /color
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-loadbalancer
+            port:
+              number: http

@@ -4,3 +4,7 @@ resources:
   - namespace-python-webapps.yml
   - webapp-color-green-deploy.yml
   - webapp-color-green-service.yml
+  - webapp-color-traefic-ingress.yml
+  - nginx-loadbalancer-configmap.yml
+  - nginx-loadbalancer-deploy.yml
+  - nginx-loadbalancer-service.yml
