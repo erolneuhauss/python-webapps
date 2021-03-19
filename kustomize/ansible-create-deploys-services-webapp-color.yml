@@ -1,0 +1,60 @@
+#!~/.local/bin/ansible-playbook
+---
+- name: create kubernetes webapp-color files
+  hosts: localhost
+  connection: local
+  serial: 1
+  gather_facts: false
+  become: false
+  collections:
+    - community.kubernetes
+  vars:
+    colors:
+      - blue
+      - blue2
+      - darkblue
+      - green
+      - pink
+      - red
+
+  tasks:
+    - name: Create kustomization file from template
+      template:
+        src: kustomization-template.j2
+        dest: kustomization.yaml
+      tags:
+        - kustomization
+      loop:
+        - "{{ colors }}"
+
+    - name: create nginx configmap from directory
+      shell: kubectl --namespace=python-webapps create configmap nginx-loadbalancer-configmap --from-file=etc-nginx --dry-run=client --output yaml > nginx-loadbalancer-configmap.yaml
+      tags:
+        - configmaps
+
+    - name: Create webapp-color deploy from template
+      template:
+        src: webapp-color-template-deployment.j2
+        dest: "webapp-color-{{ item }}-deployment.yaml"
+      tags:
+        - deployments
+      loop: "{{ colors }}"
+
+    - name: Create Service for webapp-color on port 8080
+      template:
+        src: webapp-color-template-service.j2
+        dest: "webapp-color-{{ item }}-service.yaml"
+      tags:
+        - services
+      loop: "{{ colors }}"
+
+    - name: git add kustomization
+      shell: git add kustomization.yaml
+
+    - name: git add deployments
+      shell: "git add webapp-color-{{ item }}-deployment.yaml"
+      loop: "{{ colors }}"
+
+    - name: git add services
+      shell: "git add webapp-color-{{ item }}-service.yaml"
+      loop: "{{ colors }}"

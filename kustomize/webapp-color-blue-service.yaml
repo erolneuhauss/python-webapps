@@ -1,17 +1,16 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp-color-green
+  name: webapp-color-blue
   namespace: python-webapps
   labels:
-    app: webapp-color-green
+    app: webapp-color-blue
 spec:
   selector:
-    app: webapp-color-green
+    app: webapp-color-blue
   ports:
   - protocol: TCP
     targetPort: 8080
-    name: https
+    name: http
     port: 8080
-
-
