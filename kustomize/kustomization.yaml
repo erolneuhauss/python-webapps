@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - namespace-python-webapps.yml
   - webapp-color-green-deploy.yml
+  - webapp-color-green-service.yml

@@ -1,0 +1,19 @@
+state: present
+definition:
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: webapp-color-green
+    namespace: webapp
+    labels:
+      app: webapp-color-green
+  spec:
+    selector:
+      app: webapp-color-green
+    ports:
+    - protocol: TCP
+      targetPort: 8080
+      name: https
+      port: 8080
+
+
