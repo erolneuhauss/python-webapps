@@ -578,4 +578,4 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: nginx-loadbalancer-configmap
-  namespace: python-webapp
+  namespace: python-webapps
