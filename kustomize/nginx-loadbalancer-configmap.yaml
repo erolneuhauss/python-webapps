@@ -421,12 +421,12 @@ data:
     #  keys_zone=webapp:10m max_size=1000m inactive=60m;
 
     upstream webapp-colors {
-      server webpp-color-red.webapp:8080 max_conns=1 max_fails=3 fail_timeout=20s;
-      server webpp-color-green.webapp:8080 max_conns=5 max_fails=3 fail_timeout=20s;
-      server webpp-color-blue.webapp:8080 max_conns=5 max_fails=3 fail_timeout=20s;
-      server webpp-color-blue2.webapp:8080 down;
-      server webpp-color-darkblue.webapp:8080 max_conns=5 max_fails=3 fail_timeout=20s;
-      server webpp-color-pink.webapp:8080 backup max_fails=3 fail_timeout=20s;
+      server webpp-color-red.python-webapps:8080 max_conns=1 max_fails=3 fail_timeout=20s;
+      server webpp-color-green.python-webapps:8080 max_conns=5 max_fails=3 fail_timeout=20s;
+      server webpp-color-blue.python-webapps:8080 max_conns=5 max_fails=3 fail_timeout=20s;
+      server webpp-color-blue2.python-webapps:8080 down;
+      server webpp-color-darkblue.python-webapps:8080 max_conns=5 max_fails=3 fail_timeout=20s;
+      server webpp-color-pink.python-webapps:8080 backup max_fails=3 fail_timeout=20s;
     }
 
     server {
