@@ -16,4 +16,4 @@ spec:
           service:
             name: nginx-loadbalancer
             port:
-              number: http
+              name: http
