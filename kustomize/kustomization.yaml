@@ -7,6 +7,8 @@ resources:
   - nginx-loadbalancer-deployment.yaml
   - nginx-loadbalancer-service.yaml
 
+  - webapp-color-traefic-ingress.yaml
+
   - webapp-color-blue-deployment.yaml
   - webapp-color-blue-service.yaml
   - webapp-color-blue2-deployment.yaml
@@ -19,4 +21,3 @@ resources:
   - webapp-color-pink-service.yaml
   - webapp-color-red-deployment.yaml
   - webapp-color-red-service.yaml
-  - webapp-color-traefic-ingress.yaml
