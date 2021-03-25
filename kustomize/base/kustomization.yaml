@@ -10,4 +10,4 @@ resources:
   - nginx-loadbalancer-configmap.yaml
   - nginx-loadbalancer-deployment.yaml
 
-  - nginx-loadbalancer-traefic-ingress.yaml.yaml
+  - nginx-loadbalancer-traefic-ingress.yaml
