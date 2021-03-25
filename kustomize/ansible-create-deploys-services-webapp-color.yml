@@ -21,21 +21,21 @@
     - name: Create kustomization file from template
       template:
         src: kustomization-template.j2
-        dest: base/kustomization.yaml
+        dest: kustomization.yaml
       tags:
         - kustomization
       loop:
         - "{{ colors }}"
 
     - name: create nginx configmap from directory
-      shell: kubectl --namespace=python-webapps create configmap nginx-loadbalancer-configmap --from-file=etc-nginx --dry-run=client --output yaml > base/nginx-loadbalancer-configmap.yaml
+      shell: kubectl --namespace=python-webapps create configmap nginx-loadbalancer-configmap --from-file=etc-nginx --dry-run=client --output yaml > nginx-loadbalancer-configmap.yaml
       tags:
         - configmaps
 
     - name: Create webapp-color deploy from template
       template:
         src: webapp-color-template-deployment.j2
-        dest: "base/webapp-color-{{ item }}-deployment.yaml"
+        dest: "webapp-color-{{ item }}-deployment.yaml"
       tags:
         - deployments
       loop: "{{ colors }}"
@@ -43,29 +43,29 @@
     - name: Create Service for webapp-color on port 8080
       template:
         src: webapp-color-template-service.j2
-        dest: "base/webapp-color-{{ item }}-service.yaml"
+        dest: "webapp-color-{{ item }}-service.yaml"
       tags:
         - services
       loop: "{{ colors }}"
 
     - name: git add kustomization
-      shell: git add base/kustomization.yaml
+      shell: git add kustomization.yaml
       tags:
         - kustomization
 
     - name: git add configmap
-      shell: git add base/nginx-loadbalancer-configmap.yaml
+      shell: git add nginx-loadbalancer-configmap.yaml
       tags:
         - configmaps
 
     - name: git add deployments
-      shell: "git add base/webapp-color-{{ item }}-deployment.yaml"
+      shell: "git add webapp-color-{{ item }}-deployment.yaml"
       loop: "{{ colors }}"
       tags:
         - deployments
 
     - name: git add services
-      shell: "git add base/webapp-color-{{ item }}-service.yaml"
+      shell: "git add webapp-color-{{ item }}-service.yaml"
       loop: "{{ colors }}"
       tags:
         - services

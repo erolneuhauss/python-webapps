@@ -1,19 +1,19 @@
   apiVersion: apps/v1
   kind: Deployment
   metadata:
-    name: webapp-color
+    name: webapp-color-blue
     namespace: python-webapps
     labels:
-      app: webapp-color
+      app: webapp-color-blue
   spec:
-    replicas: 0
+    replicas: 1
     selector:
       matchLabels:
-        app: webapp-color
+        app: webapp-color-blue
     template:
       metadata:
         labels:
-          app: webapp-color
+          app: webapp-color-blue
       spec:
         affinity:
           nodeAffinity:
@@ -26,10 +26,10 @@
                   - arm64
         containers:
           - image: registry.fritz.box/my/arm64v8/simple-webapp-color:v0.2.3
-            name: webapp-color
+            name: webapp-color-blue
             ports:
               - containerPort: 8080
                 name: http
-            envFrom:
-              - configMapRef:
-                  name: app_color
+            env:
+              - name: APP_COLOR
+                value: blue
